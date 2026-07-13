@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Cutie ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1dc);
+    overflow:hidden;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode{
+    background:linear-gradient(135deg,#1a1a1a,#2d2d2d,#3a3a3a);
+}
+
+/* Floating Hearts */
+.hearts{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    overflow:hidden;
+    z-index:0;
+}
+
+.hearts span{
+    position:absolute;
+    display:block;
+    color:#ff3366;
+    font-size:25px;
+    animation:float 10s linear infinite;
+    opacity:0.8;
+}
+
+.hearts span:nth-child(1){left:5%;animation-duration:8s;font-size:22px;}
+.hearts span:nth-child(2){left:15%;animation-duration:12s;font-size:35px;}
+.hearts span:nth-child(3){left:28%;animation-duration:9s;}
+.hearts span:nth-child(4){left:40%;animation-duration:11s;font-size:40px;}
+.hearts span:nth-child(5){left:52%;animation-duration:7s;}
+.hearts span:nth-child(6){left:65%;animation-duration:13s;font-size:30px;}
+.hearts span:nth-child(7){left:78%;animation-duration:10s;}
+.hearts span:nth-child(8){left:90%;animation-duration:8s;font-size:36px;}
+
+@keyframes float{
+    0%{
+        transform:translateY(110vh) scale(0.5);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-120vh) scale(1.3) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* Confetti Animation */
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    background:#ff3366;
+    pointer-events:none;
+    z-index:1;
+}
+
+@keyframes confetti-fall{
+    to{
+        transform:translateY(100vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* Particle Effects */
+.particle{
+    position:fixed;
+    pointer-events:none;
+    font-size:20px;
+    z-index:1;
+}
+
+@keyframes particle-float{
+    to{
+        transform:translate(var(--tx), var(--ty)) scale(0);
+        opacity:0;
+    }
+}
+
+.card{
+    position:relative;
+    z-index:2;
+    background:rgba(255,255,255,0.92);
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    max-width:650px;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .card{
+    background:rgba(40,40,40,0.95);
+    box-shadow:0 15px 35px rgba(255,51,102,0.2);
+}
+
+h1{
+    color:#ff3366;
+    font-size:40px;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode h1{
+    color:#ff6b9d;
+}
+
+p{
+    margin-top:20px;
+    font-size:24px;
+    line-height:1.7;
+    color:#444;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode p{
+    color:#ccc;
+}
+
+.main-heart{
+    font-size:60px;
+    animation:beat 1s infinite;
+    cursor:pointer;
+    user-select:none;
+}
+
+.main-heart:hover{
+    transform:scale(1.1);
+}
+
+@keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+}
+
+/* Button Styles */
+.button-container{
+    margin-top:30px;
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:12px 25px;
+    font-size:16px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    background:#ff3366;
+    color:white;
+    transition:all 0.3s ease;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(255,51,102,0.3);
+}
+
+.btn:hover{
+    background:#ff1a47;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(255,51,102,0.5);
+}
+
+.btn:active{
+    transform:translateY(0);
+}
+
+body.dark-mode .btn{
+    background:#ff5580;
+    box-shadow:0 5px 15px rgba(255,85,128,0.3);
+}
+
+body.dark-mode .btn:hover{
+    background:#ff3366;
+    box-shadow:0 8px 20px rgba(255,51,102,0.5);
+}
+
+/* Hover Message */
+.hover-message{
+    position:absolute;
+    background:#ff3366;
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    font-size:14px;
+    white-space:nowrap;
+    pointer-events:none;
+    z-index:10;
+    opacity:0;
+    transition:opacity 0.3s ease;
+}
+
+body.dark-mode .hover-message{
+    background:#ff5580;
+}
+
+/* Countdown Timer */
+.countdown{
+    margin-top:25px;
+    font-size:18px;
+    color:#ff3366;
+    font-weight:bold;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .countdown{
+    color:#ff6b9d;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:3;
+    background:#ff3366;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    transition:all 0.3s ease;
+    box-shadow:0 5px 15px rgba(255,51,102,0.3);
+}
+
+.dark-mode-toggle:hover{
+    transform:scale(1.05);
+}
+
+body.dark-mode .dark-mode-toggle{
+    background:#ff5580;
+}
+
+/* Music Control */
+.music-control{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:3;
+    background:#ff3366;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    transition:all 0.3s ease;
+    box-shadow:0 5px 15px rgba(255,51,102,0.3);
+}
+
+.music-control:hover{
+    transform:scale(1.05);
+}
+
+body.dark-mode .music-control{
+    background:#ff5580;
+}
+</style>
+</head>
+
+<body>
+
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+<button class="music-control" onclick="toggleMusic()" title="Toggle Background Music">🎵 Music</button>
+
+<div class="hearts">
+<span>❤</span>
+<span>💖</span>
+<span>💕</span>
+<span>💗</span>
+<span>💘</span>
+<span>💝</span>
+<span>❤</span>
+<span>💞</span>
+</div>
+
+<div class="card">
+<div class="main-heart" onclick="createConfetti(); createParticles(event)">❤️</div>
+
+<h1 onmouseover="showHoverMessage(event, 'I love you! 💕')" onmouseout="hideHoverMessage()">For My Cutie</h1>
+
+<p onmouseover="showHoverMessage(event, 'You mean everything to me! 🥹')" onmouseout="hideHoverMessage()">
+Pagluuu ❤️<br><br>
+I love you, my cutiee. 🥹💕<br><br>
+I know we are not in a relationship,<br>
+but I will always be with you. 🌸❤️
+</p>
+
+<div class="main-heart" onclick="createConfetti(); createParticles(event)">💖</div>
+
+<div class="countdown" id="countdown"></div>
+
+<div class="button-container">
+    <button class="btn" onclick="createConfetti(); showAlert('You are amazing! 💕')" onmouseover="showHoverMessage(event, 'Click me!')" onmouseout="hideHoverMessage()">Say I Love You</button>
+    <button class="btn" onclick="createParticles(event); showAlert('Forever and always! 🌸')" onmouseover="showHoverMessage(event, 'Click me!')" onmouseout="hideHoverMessage()">Forever</button>
+    <button class="btn" onclick="createConfetti(); createParticles(event); showAlert('You make me happy every day! 😊')" onmouseover="showHoverMessage(event, 'Click me!')" onmouseout="hideHoverMessage()">Special</button>
+</div>
+
+<div class="hover-message" id="hoverMessage"></div>
+</div>
+
+<audio id="backgroundMusic" loop style="display:none;">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Dark Mode Toggle
+function toggleDarkMode(){
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
+// Load dark mode preference
+if(localStorage.getItem('darkMode') === 'true'){
+    document.body.classList.add('dark-mode');
+}
+
+// Background Music
+function toggleMusic(){
+    const audio = document.getElementById('backgroundMusic');
+    if(audio.paused){
+        audio.play();
+        document.querySelector('.music-control').textContent = '🎵 Music (On)';
+    } else {
+        audio.pause();
+        document.querySelector('.music-control').textContent = '🎵 Music';
+    }
+}
+
+// Confetti Animation
+function createConfetti(){
+    for(let i = 0; i < 50; i++){
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = ['#ff3366', '#ff6b9d', '#ff9abb', '#ffb3cc', '#ffd1dc'][Math.floor(Math.random() * 5)];
+        confetti.style.animation = `confetti-fall ${2 + Math.random() * 1}s ease-in forwards`;
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+// Particle Effects
+function createParticles(event){
+    const particles = ['❤', '💖', '💕', '💗', '💘', '💝', '💞'];
+    for(let i = 0; i < 8; i++){
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+        particle.style.left = event.clientX + 'px';
+        particle.style.top = event.clientY + 'px';
+        
+        const angle = (Math.PI * 2 * i) / 8;
+        const velocity = 100;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+        
+        particle.style.setProperty('--tx', tx + 'px');
+        particle.style.setProperty('--ty', ty + 'px');
+        particle.style.animation = `particle-float 1s ease-out forwards`;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 1000);
+    }
+}
+
+// Hover Messages
+function showHoverMessage(event, message){
+    const hoverMsg = document.getElementById('hoverMessage');
+    hoverMsg.textContent = message;
+    hoverMsg.style.opacity = '1';
+    hoverMsg.style.left = event.clientX - 50 + 'px';
+    hoverMsg.style.top = event.clientY - 40 + 'px';
+}
+
+function hideHoverMessage(){
+    const hoverMsg = document.getElementById('hoverMessage');
+    hoverMsg.style.opacity = '0';
+}
+
+// Alert with style
+function showAlert(message){
+    alert(message);
+}
+
+// Countdown Timer
+function updateCountdown(){
+    const now = new Date();
+    const nextMidnight = new Date(now);
+    nextMidnight.setDate(nextMidnight.getDate() + 1);
+    nextMidnight.setHours(0, 0, 0, 0);
+    
+    const diff = nextMidnight - now;
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    
+    document.getElementById('countdown').textContent = 
+        `⏰ Time until next day with you: ${hours}h ${minutes}m ${seconds}s`;
+}
+
+// Update countdown every second
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
